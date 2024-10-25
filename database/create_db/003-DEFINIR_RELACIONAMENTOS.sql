@@ -1,23 +1,27 @@
-USE bd_aula_node;
+use bd_tcc_etim_122_g6;
 
-ALTER TABLE PRODUTOS ADD CONSTRAINT PRODUTOS_fk0 FOREIGN KEY (ptp_id) REFERENCES PRODUTO_TIPOS(ptp_id);
+ALTER TABLE enderecos ADD foreign key (usu_cod) references usuarios (usu_cod); 
 
-ALTER TABLE PEDIDOS ADD CONSTRAINT PEDIDOS_fk0 FOREIGN KEY (usu_id) REFERENCES USUARIOS(usu_id);
 
-ALTER TABLE PEDIDOS ADD CONSTRAINT PEDIDOS_fk1 FOREIGN KEY (end_id) REFERENCES ENDERECO_CLIENTES(end_id);
+ALTER TABLE compras ADD foreign key (ende_cod) references enderecos (ende_cod); 
 
-ALTER TABLE PEDIDO_PRODUTOS ADD CONSTRAINT PEDIDO_PRODUTOS_fk0 FOREIGN KEY (ped_id) REFERENCES PEDIDOS(ped_id);
 
-ALTER TABLE PEDIDO_PRODUTOS ADD CONSTRAINT PEDIDO_PRODUTOS_fk1 FOREIGN KEY (prd_id) REFERENCES PRODUTOS(prd_id);
+ALTER TABLE carrinho ADD foreign key (usu_cod) references usuarios (usu_cod); 
 
-ALTER TABLE CLIENTES ADD CONSTRAINT CLIENTES_fk0 FOREIGN KEY (usu_id) REFERENCES USUARIOS(usu_id);
 
-ALTER TABLE ENDERECO_CLIENTES ADD CONSTRAINT ENDERECO_CLIENTES_fk0 FOREIGN KEY (usu_id) REFERENCES CLIENTES(usu_id);
+ALTER TABLE carrinho ADD foreign key (prod_cod) references produtos (prod_cod); 
 
-ALTER TABLE ENDERECO_CLIENTES ADD CONSTRAINT ENDERECO_CLIENTES_fk1 FOREIGN KEY (cid_id) REFERENCES CIDADES(cid_id);
 
-ALTER TABLE MESAS ADD CONSTRAINT MESAS_fk0 FOREIGN KEY (ped_id) REFERENCES PEDIDOS(ped_id);
+ALTER TABLE imagens ADD foreign key (prod_cod) references produtos (prod_cod); 
 
-ALTER TABLE PRODUTO_INGREDIENTES ADD CONSTRAINT PRODUTO_INGREDIENTES_fk0 FOREIGN KEY (prd_id) REFERENCES PRODUTOS(prd_id);
 
-ALTER TABLE PRODUTO_INGREDIENTES ADD CONSTRAINT PRODUTO_INGREDIENTES_fk1 FOREIGN KEY (ing_id) REFERENCES INGREDIENTES(ing_id);
+ALTER TABLE compra_produtos ADD foreign key (comp_cod) references compras (comp_cod); 
+
+
+ALTER TABLE compra_produtos ADD foreign key (prod_cod) references produtos (prod_cod); 
+
+
+ALTER TABLE favoritos ADD foreign key (usu_cod) references usuarios (usu_cod); 
+
+
+ALTER TABLE favoritos ADD foreign key (prod_cod) references produtos (prod_cod); 

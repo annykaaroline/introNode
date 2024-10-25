@@ -1,11 +1,11 @@
 const db = require('../database/connection'); 
 
 module.exports = {
-    async listarProdutos(request, response) {
+    async listarcarrinho(request, response) {
         try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de produtos.', 
+                mensagem: 'Lista de carrinho.', 
                 dados: null
             });
         } catch (error) {
@@ -20,7 +20,7 @@ module.exports = {
         try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de produtos.', 
+                mensagem: 'Cadastro de carrinho.', 
                 dados: null
             });
         } catch (error) {
@@ -35,7 +35,7 @@ module.exports = {
         try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar produtos.', 
+                mensagem: 'Editar carrinho.', 
                 dados: null
             });
         } catch (error) {
@@ -50,7 +50,7 @@ module.exports = {
         try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar produtos.', 
+                mensagem: 'Apagar carrinho.', 
                 dados: null
             });
         } catch (error) {

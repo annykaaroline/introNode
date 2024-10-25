@@ -1,111 +1,75 @@
+use bd_tcc_etim_122_g6;
 
-USE bd_aula_node;
 
-CREATE TABLE IF NOT EXISTS USUARIOS (
-	usu_id int NOT NULL AUTO_INCREMENT,
-	usu_nome varchar(60) NOT NULL,
-	usu_email varchar(80) NOT NULL, 
-	usu_senha varchar(255) NOT NULL, 
-	usu_dt_nasc date NOT NULL, -- NÃO PODE SER EDITADO
-	usu_tipo tinyint NOT NULL, 
-	usu_ativo bit NOT NULL, 
-	PRIMARY KEY (usu_id)
+create table usuarios(
+usu_cod int primary key auto_increment not null,
+usu_nome varchar (40) not null,
+usu_telefone varchar (15) not null, -- 14996166687
+usu_senha varchar (40) not null,
+usu_login varchar (60) not null -- email
 );
 
-CREATE TABLE IF NOT EXISTS PRODUTOS (
-	prd_id int NOT NULL AUTO_INCREMENT,
-	prd_nome varchar(60) NOT NULL,
-	prd_valor DECIMAL(6,2) NOT NULL,
-	prd_unidade varchar(30) NOT NULL,
-	ptp_id int NOT NULL,
-	prd_disponivel bit NOT NULL,
-	prd_img varchar(255) NOT NULL, 
-	prd_destaque bit NOT NULL, 
-	prd_img_destaque varchar(255) NULL, 
-	prd_descricao varchar(100) NOT NULL, 
-	PRIMARY KEY (prd_id)
+create table enderecos(
+ende_cod int auto_increment  not null, 
+ende_logradouro varchar(60) not null, 
+ende_numero varchar(10) not null, 
+ende_complemento varchar (30) null, 
+ende_bairro varchar (30) not null, 
+ende_cep char(8) not null, 
+ende_cidade varchar(30) not null, -- região de tupã
+ende_estado char (2) not null, 
+ende_principal bit not null, 
+usu_cod int not null, 
+primary key (ende_cod)
 );
 
-CREATE TABLE IF NOT EXISTS PRODUTO_TIPOS (
-	ptp_id int NOT NULL AUTO_INCREMENT,
-	ptp_nome varchar(20) NOT NULL, 
-	ptp_icone varchar(255) NOT NULL, 	
-	PRIMARY KEY (ptp_id)
+create table compras(
+comp_cod int auto_increment not null, 
+comp_dt datetime, 
+comp_pg varchar (40) not null, -- tipo de pagamento (Pix, cartão, débito, crédito, dinheiro) 
+ende_cod int not null, 
+comp_desconto decimal (8,2), 
+comp_acrescimo decimal (8,2), 
+primary key (comp_cod)
 );
 
-CREATE TABLE IF NOT EXISTS PEDIDOS (
-	ped_id int NOT NULL AUTO_INCREMENT,
-	ped_data DATETIME NOT NULL,
-	usu_id int NOT NULL,
-	end_id int NULL,
-	ped_tipo tinyint NOT NULL,
-	ped_status tinyint NOT NULL,
-	ped_desconto DECIMAL(6,2) NOT NULL,
-	ped_vlr_pago DECIMAL(6,2) NOT NULL, 
-	ped_tp_pag tinyint NOT NULL, 
-	ped_pago bit NOT NULL, 
-	PRIMARY KEY (ped_id)
+create table carrinho(
+usu_cod  int not null, 
+prod_cod  int not null, 
+car_qtd int not null, 
+primary key (usu_cod, prod_cod) 
 );
 
-CREATE TABLE IF NOT EXISTS PEDIDO_PRODUTOS (
-	ppd_id int NOT NULL AUTO_INCREMENT,
-	ppd_hora TIME NOT NULL,
-	ppd_qtd int NOT NULL,
-	ppd_valor DECIMAL(6,2) NOT NULL,
-	ppd_obs varchar(128),
-	ppd_status tinyint NOT NULL,
-	ped_id int NOT NULL,
-	prd_id int NOT NULL,
-	PRIMARY KEY (ppd_id)
+create table produtos(
+prod_cod int auto_increment not null,
+prod_nome varchar (100) not null,
+prod_valor decimal (8,2) ,
+prod_descricao varchar(120) not null,
+prod_unidade varchar (10), -- Kg, un, g...
+primary key (prod_cod)
 );
 
-CREATE TABLE IF NOT EXISTS CLIENTES (
-	usu_id int NOT NULL,
-	cli_cel varchar(11) NOT NULL,
-	cli_pts int NOT NULL,
-	PRIMARY KEY (usu_id)
+create table imagens(
+img_cod int auto_increment not null, 
+img_descricao varchar (50) not null, 
+img_imagem varchar (255) not null, -- img.png
+img_principal bit not null, 
+prod_cod int not null, 
+primary key (img_cod) 
 );
 
-CREATE TABLE IF NOT EXISTS ENDERECO_CLIENTES (
-	end_id int NOT NULL AUTO_INCREMENT, 
-	usu_id int NOT NULL,
-	end_logradouro varchar(200) NOT NULL,
-	end_num varchar(20) NOT NULL,
-	end_bairro varchar(60) NOT NULL,
-	end_complemento varchar(60),
-	cid_id int NOT NULL, 
-	end_principal bit NOT NULL, 
-	end_excluido bit NOT NULL, 
-	PRIMARY KEY (end_id)
-);
-
-CREATE TABLE IF NOT EXISTS MESAS (
-	mes_id int NOT NULL AUTO_INCREMENT,
-	mes_nome varchar(20) NOT NULL,
-	mes_status tinyint NOT NULL,
-	mes_lugares tinyint NOT NULL,
-	ped_id int NULL,
-	PRIMARY KEY (mes_id)
-);
-
-CREATE TABLE IF NOT EXISTS CIDADES (
-	cid_id int NOT NULL AUTO_INCREMENT,
-	cid_nome varchar(60) NOT NULL,
-	cid_uf char(2) NOT NULL,
-	PRIMARY KEY (cid_id)
-);
-
-CREATE TABLE IF NOT EXISTS INGREDIENTES (
-	ing_id INT NOT NULL AUTO_INCREMENT, 
-	ing_nome VARCHAR(32) NOT NULL, 
-	ing_img VARCHAR(128) NULL, 
-	ing_custo_adicional DECIMAL(6,2) NOT NULL, 
-	PRIMARY KEY (ing_id)
-);
-
-CREATE TABLE PRODUTO_INGREDIENTES(
-	prd_id INT NOT NULL, 
-	ing_id INT NOT NULL, 
-	prd_ing_adicional BIT NOT NULL, 
-	PRIMARY KEY (prd_id, ing_id) 
+create table compra_produtos(
+comp_cod int not null, 
+prod_cod int not null, 
+cppd_qtd decimal (5,2), 
+cppd_observacoes varchar (100) null, 
+primary key (comp_cod, prod_cod) 
 ); 
+
+create table favoritos(
+usu_cod int not null,
+prod_cod int not null,
+primary key (usu_cod, prod_cod) 
+);
+
+

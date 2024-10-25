@@ -1,41 +1,34 @@
 -- SELECT COM TODOS OS CAMPOS
-SELECT ppd_id, ppd_hora, ppd_qtd, ppd_valor, ppd_obs, ped_id, prd_id, ppd_status FROM pedido_produtos;
-SELECT prd_id, prd_nome, prd_valor, prd_unidade, ptp_id, prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao FROM produtos;
-SELECT ptp_id, ptp_nome, ptp_icone FROM produto_tipos; 
-SELECT mes_id, mes_nome, mes_status, mes_lugares, ped_id FROM mesas; 
-SELECT ped_id, ped_data, usu_id, cli_id, ped_tipo, ped_status, ped_desconto, ped_vlr_pago, ped_tp_pag, ped_pago FROM pedidos; 
-SELECT end_id, usu_id, end_logradouro, end_num, end_bairro, end_complemento, cid_id, end_principal FROM endereco_clientes; 
-SELECT cid_id, cid_nome, cid_uf FROM cidades;
-SELECT usu_id, cli_cel, cli_pts FROM clientes; 
-SELECT usu_id, usu_nome, usu_email, usu_dt_nasc, usu_senha, usu_tipo, usu_ativo FROM usuarios;
-SELECT ing_id, ing_nome, ing_img, ing_custo_adicional FROM ingredientes;
-SELECT prd_id, ing_id, prd_ing_adicional FROM produto_ingredientes;
+SELECT usuarios , usu_nome, usu_telefone, usu_senha, usu_login FROM usuarios;
+SELECT enderecos, ende_logradouro, ende_numero, ende_complemento, ende_bairro, ende_cep, ende_cidade, ende_estado, ende_principal, usu_cod FROM enderecos;
+SELECT produtos, prod_nome, prod_valor, prod_descricao, prod_unidade FROM produtos;
+SELECT imagens, img_descricao, img_imagem, img_principal, prod_cod FROM imagens;
+SELECT compras, comp_dt, comp_pg, ende_cod, comp_desconto, comp_acrescimo FROM compras;
+SELECT carrinho, usu_cod, prod_cod, car_qtd FROM carrinho;
+SELECT compra_produtos, comp_cod, prod_cod, cppd_qtd, cppd_observacoes FROM compra_produtos;
+SELECT favoritos, usu_cod, prod_cod FROM favoritos;
+
+
 
 -- DROP DE TODAS AS TABELAS NA ORDEM DE EXCLUSÃO
-DROP TABLE pedido_produtos;
-DROP TABLE produto_ingredientes;
-DROP TABLE produtos;
-DROP TABLE produto_tipos; 
-DROP TABLE mesas; 
-DROP TABLE pedidos; 
-DROP TABLE endereco_clientes; 
-DROP TABLE cidades;
-DROP TABLE clientes; 
-DROP TABLE usuarios;
-DROP TABLE ingredientes; 
+drop table compra_produtos; 
+drop table favoritos; 
+drop table carrinho; 
+drop table imagens; 
+drop table produtos;
+drop table compras;
+drop table enderecos;
+drop table usuarios;
 
 -- DESCRIBE DE TODAS AS TABELAS
-DESCRIBE pedido_produtos;
+DESCRIBE compra_produtos;
 DESCRIBE produtos;
-DESCRIBE produto_tipos;
-DESCRIBE mesas;
-DESCRIBE pedidos;
-DESCRIBE endereco_clientes;
-DESCRIBE cidades;
-DESCRIBE clientes;
+DESCRIBE favoritos;
+DESCRIBE carrinho;
+DESCRIBE imagens;
+DESCRIBE compras;
+DESCRIBE enderecos;
 DESCRIBE usuarios; 
-DESCRIBE ingredientes; 
-DESCRIBE produto_ingredientes;
 
 -- INSTRUÇÃO PARA APAGAR OS REGISTROS
 DELETE FROM pedido_produtos;
@@ -45,6 +38,11 @@ DELETE FROM usuarios;
 
 -- RESETAR AUTO INCREMENTO - APENAS DAS TABELAS QUE TEM A CHAVE PRIMÁRIA COMO AUTOINCREMENTO
 ALTER TABLE usuarios AUTO_INCREMENT = 1;
+ALTER TABLE produtos AUTO_INCREMENT = 1;
+ALTER TABLE imagens AUTO_INCREMENT = 1;
+ALTER TABLE compras AUTO_INCREMENT = 1;
+ALTER TABLE enderecos AUTO_INCREMENT = 1;
+
 
 
 -- COMANDOS API
